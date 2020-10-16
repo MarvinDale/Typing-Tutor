@@ -2,6 +2,8 @@ const green   = "limegreen";
 const neutral = "bisque"
 let grey    = "grey"
 
+const words = ["the", "be", "to", "of", "and", "a", "in", "that", "have", "I"];
+
 const numOfChars = 80;
 createSpan(numOfChars);
 
