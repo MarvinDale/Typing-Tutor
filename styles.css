@@ -7,8 +7,6 @@ body {
 
 #type-area {
   background-color: bisque;
-  display: flex;
-  justify-content: center;
 }
 
 h1 {
@@ -17,5 +15,4 @@ h1 {
 
 span {
   font-size: 1.6rem;
-  display: ;
 }

@@ -1,6 +1,5 @@
-window.addEventListener("DOMContentLoaded", () => {
-  const numOfChars = 80;
-
+const numOfChars = 5;
+  console.log("poo")
   createSpan(numOfChars);
   let text = document.querySelectorAll("span");
   let i = 0;
@@ -9,16 +8,20 @@ window.addEventListener("DOMContentLoaded", () => {
   highlightText(text, i);
 
   document.addEventListener("keypress", (event) => {
+    let text = document.querySelectorAll("span");
+    let textLenght = text.length;
     let key = getChar(text, i);
 
     if (event.key === key) {
       unhighlightText(text, i);
       i++;
-      if (i === textLenght) i = restart();
+      if (i === textLenght) {
+      i = restart();
+      reset();
+      }
       highlightText(text, i);
     }
   });
-});
 
 function highlightText(text, i) {
   text[i].style.backgroundColor = "grey";
@@ -34,8 +37,19 @@ function unhighlightText(text, i) {
 }
 
 function restart() {
+  let node = document.getElementById("type-area");
+  while(node.firstChild) {
+    node.removeChild(node.lastChild);
+  }
   let i = 0;
   return i;
+}
+
+function reset () {
+  createSpan(numOfChars);
+  let text = document.querySelectorAll("span");
+  let i = 0;
+  highlightText(text, i);
 }
 
 function generateChar() {
@@ -47,16 +61,16 @@ function generateChar() {
   return word;
 }
 
-function createSpan(numOfWords) {
-  for (i = 0; i < numOfWords; i++) {
+function createSpan(numOfChars) {
+  for (let i = 0; i < numOfChars; i++) {
     let word = generateChar();
     let newSpan = document.createElement("span");
     newSpan.innerHTML = word;
     document.getElementById("type-area").appendChild(newSpan);
 
-    if (7 < Math.floor(Math.random() * 10 + 1)) {
+    if (7 < Math.floor(Math.random() * 10 + 1) &&  i < numOfChars - 1) {
       let space = document.createElement("span");
-      space.innerHTML = "_";
+      space.innerHTML = " ";
       document.getElementById("type-area").appendChild(space);
     }
   }
