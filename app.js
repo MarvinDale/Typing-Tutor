@@ -1,30 +1,40 @@
-const numOfChars = 5;
-  console.log("poo")
-  createSpan(numOfChars);
-  let text = document.querySelectorAll("span");
-  let i = 0;
-  let textLenght = text.length;
+const green   = "limegreen";
+const neutral = "bisque"
+let grey    = "grey"
 
-  highlightText(text, i);
+const numOfChars = 80;
+createSpan(numOfChars);
 
-  document.addEventListener("keypress", (event) => {
+let text = document.querySelectorAll("span");
+let i = 0;
+let textLenght = text.length;
+
+highlightText(text, i, grey);
+
+document.addEventListener("keypress", (event) => {
     let text = document.querySelectorAll("span");
     let textLenght = text.length;
     let key = getChar(text, i);
 
     if (event.key === key) {
-      unhighlightText(text, i);
+      grey = "grey"
+      highlightText(text, i, green);
       i++;
       if (i === textLenght) {
       i = restart();
       reset();
-      }
-      highlightText(text, i);
+      } 
+      } else {
+        grey = "red"
+        highlightText(text, i, grey);
+      
+      
     }
+     highlightText(text, i, grey);
   });
 
-function highlightText(text, i) {
-  text[i].style.backgroundColor = "grey";
+function highlightText(text, i, color) {
+  text[i].style.backgroundColor = color;
 }
 
 function getChar(text, i) {
@@ -33,7 +43,7 @@ function getChar(text, i) {
 }
 
 function unhighlightText(text, i) {
-  text[i].style.backgroundColor = "white";
+  text[i].style.backgroundColor = "bisque";
 }
 
 function restart() {
