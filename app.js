@@ -2,27 +2,31 @@ const green   = "limegreen";
 const neutral = "bisque"
 let grey    = "grey"
 
-const words = ["the", "be", "to", "of", "and", "a", "in", "that", "have", "I"];
+ const words = ["the", "be", "to", "of", "and", "a", "in", "that", "have", "I", "it", "for", "not", "on", "with", "he", "as", "you", "do", "at"];
+let mins = 0;
+ const gWPM = (words.length / 5) / mins;
+//const words = ["the"];
 
-const numOfChars = 80;
-createSpan(numOfChars);
+displayWords(words);
 
 let text = document.querySelectorAll("span");
 let i = 0;
-let textLenght = text.length;
+let textLenght = text.length - 1;
 
 highlightText(text, i, grey);
 
 document.addEventListener("keypress", (event) => {
     let text = document.querySelectorAll("span");
-    let textLenght = text.length;
+    let textLenght = text.length -1;
     let key = getChar(text, i);
 
     if (event.key === key) {
       grey = "grey"
       highlightText(text, i, green);
       i++;
+  
       if (i === textLenght) {
+        
       i = restart();
       reset();
       } 
@@ -49,6 +53,7 @@ function unhighlightText(text, i) {
 }
 
 function restart() {
+  
   let node = document.getElementById("type-area");
   while(node.firstChild) {
     node.removeChild(node.lastChild);
@@ -58,32 +63,29 @@ function restart() {
 }
 
 function reset () {
-  createSpan(numOfChars);
+  displayWords(words);
   let text = document.querySelectorAll("span");
   let i = 0;
-  highlightText(text, i);
+  
+  highlightText(text, i, grey);
 }
 
-function generateChar() {
-  //generate number between 96 and 122 inclusive
-  let num = Math.ceil(Math.random() * (122 - 96) + 96);
+function displayWords(words) {
 
-  word = String.fromCharCode(num);
+    words.forEach(element => {
 
-  return word;
-}
+      let chars = element.split("");
+      console.log(chars);
 
-function createSpan(numOfChars) {
-  for (let i = 0; i < numOfChars; i++) {
-    let word = generateChar();
-    let newSpan = document.createElement("span");
-    newSpan.innerHTML = word;
-    document.getElementById("type-area").appendChild(newSpan);
+      chars.forEach(character => {
 
-    if (7 < Math.floor(Math.random() * 10 + 1) &&  i < numOfChars - 1) {
-      let space = document.createElement("span");
-      space.innerHTML = " ";
-      document.getElementById("type-area").appendChild(space);
-    }
-  }
+        let newChar = document.createElement("span");
+        newChar.innerHTML = character;
+        document.getElementById("type-area").appendChild(newChar);
+      });
+    
+    let space = document.createElement("span");
+    space.innerHTML = " ";
+    document.getElementById("type-area").appendChild(space);
+  });
 }
