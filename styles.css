@@ -3,7 +3,7 @@ html {
 }
 
 body {
-  font-family: "Roboto", sans-serif;
+  font-family: "Roboto Mono", monospace;
   background-color: #494444;
   margin: 0;
   padding: 0;
@@ -27,4 +27,63 @@ body {
 
 span {
   font-size: 1.6rem;
+}
+
+.blinking-cursor {
+  background-color: grey;
+  -webkit-animation: 1s blink step-end infinite;
+  -moz-animation: 1s blink step-end infinite;
+  -ms-animation: 1s blink step-end infinite;
+  -o-animation: 1s blink step-end infinite;
+  animation: 1s blink step-end infinite;
+}
+
+@keyframes blink {
+  from,
+  to {
+    background-color: grey;
+  }
+  50% {
+    background-color: transparent;
+  }
+}
+
+@-moz-keyframes blink {
+  from,
+  to {
+    background-color: grey;
+  }
+  50% {
+    background-color: transparent;
+  }
+}
+
+@-webkit-keyframes blink {
+  from,
+  to {
+    background-color: grey;
+  }
+  50% {
+    background-color: transparent;
+  }
+}
+
+@-ms-keyframes blink {
+  from,
+  to {
+    background-color: grey;
+  }
+  50% {
+    background-color: transparent;
+  }
+}
+
+@-o-keyframes blink {
+  from,
+  to {
+    background-color: grey;
+  }
+  50% {
+    background-color: transparent;
+  }
 }
