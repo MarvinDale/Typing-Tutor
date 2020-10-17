@@ -1,22 +1,31 @@
 const green   = "limegreen";
-const neutral = "bisque"
 let grey    = "grey"
 
- const words = ["the", "be", "to", "of", "and", "a", "in", "that", "have", "I", "it", "for", "not", "on", "with", "he", "as", "you", "do", "at"];
-let mins = 0;
- const gWPM = (words.length / 5) / mins;
+const words = ["the", "be", "to", "of", "and", "a", "in", "that", "have", "I", "it", "for", "not", "on", "with", "he", "as", "you", "do", "at"];
+
 //const words = ["the"];
 
-displayWords(words);
+let mins = 0;
+ //gross wpm formula (words.length / 5) / mins;
 
-let text = document.querySelectorAll("span");
+ let totalChars = displayWords(words);
+ console.log("Total Chars " + totalChars);
+
+let text = document.querySelectorAll(".typeable");
+
 let i = 0;
 let textLenght = text.length - 1;
 
 highlightText(text, i, grey);
 
 document.addEventListener("keypress", (event) => {
-    let text = document.querySelectorAll("span");
+
+    if(i === 0){
+      
+      let startTime = startTimer();
+    }
+
+    let text = document.querySelectorAll(".typeable");
     let textLenght = text.length -1;
     let key = getChar(text, i);
 
@@ -26,6 +35,9 @@ document.addEventListener("keypress", (event) => {
       i++;
   
       if (i === textLenght) {
+
+      let gWPM = getWpm(startTime, totalChars);
+      document.querySelector(".wpm").innerHTML = gWPM.toPrecision(2);
         
       i = restart();
       reset();
@@ -64,28 +76,48 @@ function restart() {
 
 function reset () {
   displayWords(words);
-  let text = document.querySelectorAll("span");
+  let text = document.querySelectorAll(".typeable");
   let i = 0;
   
   highlightText(text, i, grey);
 }
 
 function displayWords(words) {
-
+    let numOfSpaces = words.length - 1; //get the number of spaces needed
+    let numOfChars   = 0; //initialise number of characters to 0
     words.forEach(element => {
 
       let chars = element.split("");
-      console.log(chars);
+    
 
       chars.forEach(character => {
+        numOfChars ++;
 
         let newChar = document.createElement("span");
         newChar.innerHTML = character;
+        newChar.className = "typeable"
         document.getElementById("type-area").appendChild(newChar);
       });
     
     let space = document.createElement("span");
     space.innerHTML = " ";
+    space.className = "typeable"
     document.getElementById("type-area").appendChild(space);
   });
+
+ return numOfChars + numOfSpaces; //return total characters
+}
+
+function startTimer() {
+  return startTime = new Date();
+}
+
+function getWpm(startTime, totalChars) {
+  endTime = new Date();
+  let ellapsedTime = endTime - startTime; //get milliseconds
+
+  ellapsedTime /= 1000; //get seconds
+  ellapsedTime /= 60; //get minutes
+
+  return (totalChars / 5) / ellapsedTime;
 }
