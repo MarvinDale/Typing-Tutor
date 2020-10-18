@@ -23,6 +23,8 @@ body {
   border-radius: 10px;
 
   box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+
+  position: relative;
 }
 
 span {
@@ -85,5 +87,32 @@ span {
   }
   50% {
     background-color: transparent;
+  }
+}
+
+/* pulse effect */
+.pulse::after {
+  content: "";
+  border-radius: 10px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  background-color: lime;
+  animation: pulse 1000ms;
+  z-index: -1;
+}
+
+@keyframes pulse {
+  from,
+  to {
+    transform: scale(1, 1);
+  }
+  100% {
+    transform: scale(1.05, 1.15);
+    opacity: 0;
   }
 }

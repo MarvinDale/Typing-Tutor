@@ -3,7 +3,7 @@ let grey    = "grey"
 
 const commonWords = ["the","of","and","a","to","in","is","you","that","it","he","was","for","on","are","as","with","his","they","I","at","be","this","have","from","or","one","had","by","word","but","not","what","all","were","we","when","your","can","said","there","use","an","each","which","she","do","how","their","if","will","up","other","about","out","many","then","them","these","so","some","her","would","make","like","him","into","time","has","look","two","more","write","go","see","number","no","way","could","people","my","than","first","water","been","call","who","oil","its","now","find","long","down","day","did","get","come","made","may","part"];
 
-const numOfWords = 30;
+const numOfWords = 20;
 
 words = getRandomWords(commonWords, numOfWords);
 
@@ -17,8 +17,8 @@ let text = document.querySelectorAll(".typeable");
 
 let i = 0;
 let textLenght = text.length - 1;
+let mistakes = 0;
 
-//highlightText(text, i, grey);
 addCursor(text, i);
 
 document.addEventListener("keypress", (event) => {
@@ -30,6 +30,7 @@ document.addEventListener("keypress", (event) => {
     let key = getChar(text, i);
 
     if (event.key === key) {
+       document.getElementById("type-area").classList.remove("pulse");
       grey = "grey"
       highlightText(text, i, green);
       removeCursor(text, i);
@@ -39,17 +40,21 @@ document.addEventListener("keypress", (event) => {
 
           let gWPM = getWpm(startTime, totalChars);
           document.querySelector(".wpm").innerHTML = gWPM.toPrecision(2);
-
+          if(mistakes === 0){
+           
+            
+            document.getElementById("type-area").classList.add("pulse");
+            
+          }
+          mistakes = 0;
           i = restart();
           reset();
         } 
       } else {
-
+      mistakes++;
       grey = "red"
       addCursor(text, i);
       highlightText(text, i, grey);
-      
-      
     }
     addCursor(text, i);
      
